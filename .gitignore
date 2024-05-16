@@ -1,0 +1,8 @@
+.env
+/venv
+/.venv
+/frames/*
+/output_sounds
+!/frames/.gitkeep
+/__pycache__
+
