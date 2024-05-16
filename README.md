@@ -1,6 +1,5 @@
 
-
-# Proyect adapting David Attenborough narrates your life with open-source tools (LLava & xtts)
+# Project adapting David Attenborough narrates your life with open-source tools (LLava & xtts)
 
 https://twitter.com/charliebholtz/status/1724815159590293764
 
@@ -35,4 +34,3 @@ In another terminal, run the narrator:
 ```bash
 python narrator_llava_xtts.py
 ```
-
