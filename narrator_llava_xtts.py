@@ -6,26 +6,32 @@ from CV2Text_llava_class import CV2Text
 from TTS.api import TTS
 
 def main():
+    path_to_image = "\\frames\\frame.jpg"
+    full_path_to_image = define_full_path(path_to_image)
+
+    audio_sample = "audio samples/David_assets_wonderful_posture.wav"
+    audio_export_name = "output.wav"
+    
+    processing_device = check_device_cpu_or_gpu()
+    prompt = "Describe this image. Do not repeat the previous context by the assistant! Add something new!"
+
     chat_records = []
     count=0
     while count<5:
-        full_path_to_image = r"C:\Users\rober\Documents\Python Scripts\LLM Speech Narrator from Camera\frames\frame.jpg"
-        audio_sample = "audio samples/David_assets_wonderful_posture.wav"
-        audio_export_name = "output.wav"
-        processing_device = check_device_cpu_or_gpu()
-
-        prompt = "Describe this image. Do not repeat the previous context by the assistant! Add something new!"
         #llava_response, llava_context = apply_llava_narrator(full_path, prompt=prompt, chat_records=chat_records, print_response = True)
         llava_response = apply_llava_narrator(full_path_to_image, prompt=prompt, chat_records=chat_records, print_response = True)
-        #play_audio_with_xtts_v2(llava_response['content'], audio_sample, processing_device, audio_export_name)        
-
-        #chat_records = chat_records + [{"role": "assistant", "content": llava_response}]
         chat_records = [{"role": "assistant", "content": llava_response}]
         
-        #time.sleep(5)
+        play_audio_with_xtts_v2(llava_response['content'], audio_sample, processing_device, audio_export_name)        
+        
+        time.sleep(5)
         count+=1
         print("loop ",count)
 
+def define_full_path(filename):
+    current_dir = os.path.dirname(os.path.abspath(__name__))
+    return current_dir + filename
+     
 def check_device_cpu_or_gpu():
     if torch.cuda.is_available():
         processing_device = "cuda"
